@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Train Scheduler</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="jumbotron jumbotron-fluid" id="jumbo">
+            <h1 class="display-4">AnyTime Is Train Time!</h1>
+            <h4>Choo Choo. Chee Chee.</h4>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                Current Train Schedule
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Train Name</th>
+                        <th scope="col">Destination</th>
+                        <th scope="col">Frequency (min)</th>
+                        <th scope="col">Next Arrival</th>
+                        <th scope="col">Minutes Away</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row">Trenton Express</td>
+                        <td>Trenton</td>
+                        <td>25</td>
+                        <td>05:35 PM</td>
+                        <td>10</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <br>
+
+        </div>
+
+        <br>
+        <div class="card">
+            <div class="card-header">
+                Add Train
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Train Name:</label>
+                        <input type="email" class="form-control" id="searchTerm">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Destination:</label>
+                        <input type="email" class="form-control" id="searchTerm">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">First Train Time(HH:mm-military time):</label>
+                        <input type="email" class="form-control" id="startYear">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Frequency (min):</label>
+                        <input type="email" class="form-control" id="endYear">
+                    </div>
+                </form>
+                <button type="button" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+        <br>
+
+    </div>
+
+
+
+
+
+    <script src="assets/javascript/app.js"></script>
+</body>
+
+</html>
