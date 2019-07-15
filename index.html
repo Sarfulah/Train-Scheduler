@@ -9,6 +9,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    
 </head>
 
 <body>
@@ -56,34 +64,94 @@
             <div class="card-body">
                 <form>
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">Train Name:</label>
-                        <input type="email" class="form-control" id="searchTerm">
+                        <label for="trainName-input">Train Name:</label>
+                        <input type="text" class="form-control" id="trainName-input">
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">Destination:</label>
-                        <input type="email" class="form-control" id="searchTerm">
+                        <label for="dest-input">Destination:</label>
+                        <input type="text" class="form-control" id="dest-input">
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">First Train Time(HH:mm-military time):</label>
-                        <input type="email" class="form-control" id="startYear">
+                        <label for="firstTrain-input">First Train Time(HH:mm-military time):</label>
+                        <input type="number" class="form-control" id="firstTrain-input">
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">Frequency (min):</label>
-                        <input type="email" class="form-control" id="endYear">
+                        <label for="freq-input">Frequency (min):</label>
+                        <input type="number" class="form-control" id="freq-input">
                     </div>
                 </form>
-                <button type="button" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-primary" id="add-train">Submit</button>
             </div>
         </div>
         <br>
 
     </div>
 
-
-
-
-
     <script src="assets/javascript/app.js"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script>
+        var config = {
+            apiKey: "AIzaSyB_EHbAh6fz0PYaM4oc0w4r70LgE0TuBVE",
+            authDomain: "strongpoint-22712.firebaseapp.com",
+            databaseURL: "https://strongpoint-22712.firebaseio.com",
+            projectId: "strongpoint-22712",
+            storageBucket: "strongpoint-22712.appspot.com",
+            messagingSenderId: "471113406244",
+            appId: "1:471113406244:web:0f53d94ec981cd25"
+        };
+        firebase.initializeApp(config);
+        var database = firebase.database();
+        var trainName = "";
+        var dest = "";
+        var firstTrain = "";
+        var freq = 0;
+
+        $("#add-train").on("click", function (event) {
+            event.preventDefault();
+
+            trainName = $("#trainName-input").val().trim();
+            dest = $("#dest-input").val().trim();
+            firstTrain = $("#firstTrain-input").val().trim();
+            freq = $("#freq-input").val().trim();
+            // Code for handling the push
+            database.ref().push({
+                trainName: trainName,
+                dest: dest,
+                firstTrain: firstTrain,
+                freq: freq,
+
+                dateAdded: firebase.database.ServerValue.TIMESTAMP
+            });
+        });
+
+        database.ref().on("child_added", function (snapshot) {
+            // storing the snapshot.val() in a variable for convenience
+            var sv = snapshot.val();
+            var newRow = $("<tr>");
+
+            var nameData = $("<td>");
+            nameData.text(sv.trainName);
+
+            var destData = $("<td>");
+            destData.text(sv.dest);
+
+            var trainData = $("<td>");
+            trainData.text(sv.firstTrain);
+
+            var freqData = $("<td>");
+            freqData.text(sv.freq);
+            // Console.loging the last user's data
+            console.log(sv.trainName);
+            console.log(sv.dest);
+            console.log(sv.firstTrain);
+            console.log(sv.freq);
+
+
+
+            newRow.append(nameData, destData, trainData, freqData);
+            $("tbody").append(newRow);
+        });
+    </script>
 </body>
 
 </html>
